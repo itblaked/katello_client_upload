@@ -1,0 +1,14 @@
+---
+# tasks file for katello_client_upload
+
+- name: Install Katello host tools
+  yum:
+    name: katello-host-tools
+    state: installed
+  
+- name: Force Katello client to upload package data to Satellite
+  command: "{{ item }}"
+  loop:
+    - katello-package-upload --force
+    - katello-enabled-repos-upload --force
+  register: katello_command_results
